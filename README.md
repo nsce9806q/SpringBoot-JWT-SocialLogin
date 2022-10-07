@@ -35,7 +35,7 @@
    5. 시큐리티 세션에 접근하여 강제로 인증 객체 저장
 3. 다음 체인 필터로 넘겨서 api 접근하게 한다.
 #### SecurityConfig.java
-
+시큐리티 필터 설정
 ```java
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -87,6 +87,7 @@ public class SecurityConfig {
 ```
 
 #### User.java
+User Entity 정의
 ```java
 @Data
 @Entity
@@ -115,6 +116,7 @@ public class User {
 ```
 
 #### UserRepository.java
+User 테이블/객체 Data Access Layer
 ```java
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -123,6 +125,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ```
 
 #### PrincipalDetails.java
+UserDetails 구현받아 User 객체를 PrincipalDetails 객체로 생성
 ```java
 @Data
 @RequiredArgsConstructor
@@ -175,6 +178,7 @@ public class PrincipalDetails implements UserDetails {
 ```
 
 #### PrincipalDetailsService.java
+UserDetailsService를 구현받아 User 객체에 맞게 정의
 ```java
 @RequiredArgsConstructor
 @Service
@@ -191,6 +195,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 ```
 
 #### CorsConfig.java
+CORS 관련 필터 설정
 ```java
 @Configuration
 public class CorsConfig {
@@ -212,6 +217,7 @@ public class CorsConfig {
 ```
 
 #### JwtAuthenticationFilter.java
+JWT인증 필터, UsernamePasswordAuthenticationFilter를 상속받아 로그인 로직을 담당한다.
 ```java
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -309,6 +315,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 ```
 
 #### JwtAuthorization.java
+BasicAuthenticationFilter를 상속받아 권한 인가 처리를 담당한다.
 ```java
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
